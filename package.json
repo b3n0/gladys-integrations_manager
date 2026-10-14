@@ -1,0 +1,19 @@
+{
+  "name": "gladys-integrations-manager",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Intégration externe Gladys qui supervise les intégrations installées sur la machine.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@gladysassistant/integration-sdk": "^0.15.0"
+  },
+  "license": "Apache-2.0"
+}

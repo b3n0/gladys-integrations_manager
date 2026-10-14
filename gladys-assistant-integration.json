@@ -1,0 +1,73 @@
+{
+  "manifest_version": 1,
+  "type": "provider",
+  "name": "Intégrations installées",
+  "description": {
+    "en": "Supervise installed external integrations from a single page.",
+    "fr": "Supervise les intégrations externes installées, sur une seule page."
+  },
+  "version": "1.0.0",
+  "docker_image": "ghcr.io/gladysassistant/integrations-manager:1.0.0",
+  "gladys_version": ">=5.1.0",
+  "categories": ["services"],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": { "en": "Open the manager", "fr": "Ouvrir le gestionnaire" },
+      "description": {
+        "en": "One page lists the external integrations installed on this machine and repeats the buttons of their supervision screen: Start, Stop, Restart, Update, Force update, Logs and Uninstall. There is no second control plane: each button calls the admin route Gladys already uses.\n\nOpen the manager: http://{{gladys_host}}:{{port:manager_ui}}/\n\nPaste an administrator API key below (scope dashboard:write, created with POST /api/v1/session/api_key). A raw key is sent as the Authorization value. A JWT access token is accepted too. Without a key, the page stays in demonstration mode.",
+        "fr": "Une page liste les intégrations externes installées et reprend les boutons de leur écran de supervision : Démarrer, Arrêter, Redémarrer, Mettre à jour, Forcer la mise à jour, Journaux et Désinstaller. Aucun pilotage parallèle : chaque bouton appelle la route admin que Gladys utilise déjà.\n\nOuvrez le gestionnaire : http://{{gladys_host}}:{{port:manager_ui}}/\n\nCollez la clé API d’un administrateur (portée dashboard:write, créée via POST /api/v1/session/api_key). Une clé est envoyée telle quelle dans Authorization. Un jeton d’accès JWT est accepté aussi. Sans clé, la page reste en démonstration."
+      },
+      "links": [
+        {
+          "url": "https://gladysassistant.com/fr/docs/dev/external-integrations/",
+          "label": { "en": "External integration guide", "fr": "Guide des intégrations externes" }
+        }
+      ]
+    },
+    {
+      "key": "api_key",
+      "type": "secret",
+      "label": { "en": "Admin API key", "fr": "Clé API administrateur" },
+      "description": {
+        "en": "Long-lived key of an admin user, scope dashboard:write. Not the integration token.",
+        "fr": "Clé longue durée d’un administrateur, portée dashboard:write. Pas le jeton d’intégration."
+      },
+      "placeholder": { "en": "API key or access token", "fr": "Clé API ou jeton d’accès" },
+      "required": false
+    }
+  ],
+  "containers": [
+    {
+      "name": "ui",
+      "docker_image": "ghcr.io/gladysassistant/integrations-manager:1.0.0",
+      "start": "manual",
+      "env": { "INTEGRATIONS_MANAGER_ROLE": "ui" },
+      "memory_mb": 256,
+      "cpu": 0.3,
+      "read_only": true,
+      "ports": [
+        {
+          "container_port": 4317,
+          "protocol": "tcp",
+          "name": "manager_ui",
+          "browsable": true,
+          "label": { "en": "Manager", "fr": "Gestionnaire" }
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "installed",
+      "label": { "en": "Integrations", "fr": "Intégrations" },
+      "description": {
+        "en": "Running, stopped and outdated integrations on this instance.",
+        "fr": "Intégrations en cours, arrêtées ou à mettre à jour."
+      },
+      "icon": "package",
+      "action_timeout_seconds": 15
+    }
+  ]
+}

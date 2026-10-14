@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Intégrations installées</title>
+    <link rel="stylesheet" href="/app.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap top-row">
+        <div>
+          <p class="eyebrow">Intégration externe Gladys</p>
+          <h1>Intégrations installées</h1>
+          <p id="lead" class="lead">Chargement des intégrations…</p>
+        </div>
+        <div class="top-actions">
+          <p id="mode" class="mode">Démonstration</p>
+          <button type="button" id="refresh" class="btn btn-secondary">Actualiser</button>
+        </div>
+      </div>
+    </header>
+    <main class="wrap">
+      <div id="banner"></div>
+      <details class="panel" id="connection">
+        <summary>Connexion à une instance Gladys</summary>
+        <p class="hint">
+          Collez l’adresse de l’instance et la clé API d’un administrateur (portée
+          <code>dashboard:write</code>). Une clé est envoyée telle quelle. Un jeton d’accès JWT est reconnu et
+          envoyé avec le préfixe Bearer. Sans cela, les boutons agissent sur un jeu de démonstration.
+        </p>
+        <form id="connect-form">
+          <label>
+            Adresse de Gladys
+            <input id="gladys-url" name="gladys_url" type="url" inputmode="url" placeholder="http://192.168.1.10:1443" autocomplete="url" required />
+          </label>
+          <label>
+            Clé API ou jeton d’accès
+            <input id="api-key" name="api_key" type="password" autocomplete="off" required />
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="connect-submit">Connecter</button>
+            <button type="button" class="btn btn-secondary" id="disconnect" hidden>Revenir à la démonstration</button>
+          </div>
+          <p id="connect-error" class="form-error" role="alert" hidden></p>
+        </form>
+      </details>
+      <section id="board" class="board" aria-live="polite" aria-busy="true">
+        <p class="loading-label">Chargement des intégrations…</p>
+      </section>
+    </main>
+    <dialog id="logs-dialog" class="logs" aria-labelledby="logs-title">
+      <div class="logs-head">
+        <div>
+          <h2 id="logs-title">Journaux</h2>
+          <p id="logs-name" class="hint"></p>
+        </div>
+        <div class="logs-tools">
+          <label id="logs-container-label" hidden>
+            Conteneur
+            <select id="logs-container"></select>
+          </label>
+          <button type="button" id="logs-refresh" class="btn btn-secondary">Rafraîchir</button>
+          <form method="dialog">
+            <button type="submit" class="btn btn-secondary">Fermer</button>
+          </form>
+        </div>
+      </div>
+      <div id="logs-body" class="logs-body"></div>
+    </dialog>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
