@@ -14,6 +14,12 @@ test('le manifeste et la documentation suivent le contrat externe', () => {
   }
   assert.match(manifest.docker_image, /:.+$/);
   assert.equal(manifest.gladys_version, '>=5.1.0');
+  assert.equal(
+    manifest.cover_image,
+    'https://raw.githubusercontent.com/b3n0/gladys-integrations_manager/main/cover.jpg',
+  );
+  const cover = readFileSync(new URL('cover.jpg', root));
+  assert.ok(cover.length < 150 * 1024, 'cover.jpg doit peser moins de 150 Ko');
   assert.deepEqual(manifest.categories, ['services']);
   assert.ok(manifest.widgets.length >= 1);
   assert.equal(manifest.containers[0].ports[0].name, 'manager_ui');

@@ -9,6 +9,7 @@
   "version": "1.0.0",
   "docker_image": "ghcr.io/gladysassistant/integrations-manager:1.0.0",
   "gladys_version": ">=5.1.0",
+  "cover_image": "https://raw.githubusercontent.com/b3n0/gladys-integrations_manager/main/cover.jpg",
   "categories": ["services"],
   "config_schema": [
     {
