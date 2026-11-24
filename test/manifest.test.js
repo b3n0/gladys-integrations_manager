@@ -21,6 +21,8 @@ test('le manifeste et la documentation suivent le contrat externe', () => {
   const cover = readFileSync(new URL('cover.jpg', root));
   assert.ok(cover.length < 150 * 1024, 'cover.jpg doit peser moins de 150 Ko');
   assert.deepEqual(manifest.categories, ['services']);
+  // Only the local Gladys API: the "Local" filter of the catalog finds it.
+  assert.deepEqual(manifest.transports, ['local']);
   assert.ok(manifest.widgets.length >= 1);
   assert.equal(manifest.containers[0].ports[0].name, 'manager_ui');
   assert.equal(manifest.containers[0].ports[0].browsable, true);
